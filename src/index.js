@@ -15,8 +15,9 @@ const router=createBrowserRouter(
       <Route path='favorites' element={<Favorites></Favorites>}></Route>
       <Route path='details/:id' element={<Details></Details>}></Route>
     </Route>
-  )
-)
+  ),
+  { basename: '/Recipe-App' }
+);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
