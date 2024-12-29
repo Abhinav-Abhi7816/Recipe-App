@@ -43,7 +43,7 @@ function Details() {
     <div className='pt-28 min-h-[600px] md:px-16 px-1 mb-10 '>
       <div className='md:p-10 p-3 py-5 bg-slate-300 rounded-3xl'>
         <div className='bg-white  md:p-10 px-2 py-3 md:m-5 rounded-3xl shadow-2xl' style={{ boxShadow: "2px 4px 20px rgb(0,0,0,0.3)" }}>
-          <div className='w-[100%] flex place-content-center text-sm md:text-3xl mb-5 font-semibold'><h1 className='border-b-2 border-b-black px-5 w-fit' style={{ fontFamily: "Comic Sans MS" }}>{item.title}</h1></div>
+          <div className='w-[100%] flex place-content-center text-lg md:text-3xl mb-5 font-semibold'><h1 className='border-b-2 border-b-black px-5 w-fit' style={{ fontFamily: "Comic Sans MS" }}>{item.title}</h1></div>
           <div className='flex flex-col md:flex-row justify-around md:pt-10'>
             <div className=' flex flex-col justify-center place-items-center'>
               <div className='flex  place-items-center md:pb-10 pb-4  h-fit w-fit' style={{ borderRadius: "50%", height: "75%", position: "center" }}>
@@ -55,7 +55,7 @@ function Details() {
               <p className='text-blue-700 md:text-xl text-xs m-1 font-thin'>Publisher : {item.publisher}</p>
             </div>
 
-            <div className='max-w-[500px] text-wrap flex flex-col place-content-center'>
+            <div className='max-w-[500px] px-2 text-wrap flex flex-col place-content-center'>
               <h1 className='md:text-2xl text-lg font-semibold'>Ingredients:</h1>
               <div className='flex flex-col gap-1'>
                 {(item.ingredients.map((el, index) => (<div key={index}>
