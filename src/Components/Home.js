@@ -25,7 +25,7 @@ function Home() {
       <div className='md:pt-32 pt-24'>
         {(recipesArr && recipesArr.length > 0) ? <h1 className='w-[100%] font-semibold text-center md:text-2xl text-lg underline underline-offset-8' style={{ textShadow: "2px 4px 20px rgb(0,0,0,0.3)" }}>{title} Recipies</h1> : null}
         <div className='flex flex-wrap justify-around md:gap-10 gap-4 pt-4 md:p-8'>
-          {(recipesArr && recipesArr.length > 0) ? recipesArr.map((el, index) => (<div className='bg-white overflow-hidden rounded-2xl md:w-[450px] md:max-w-[450px] w-[95%] md:py-8  py-4 px-4 flex flex-col justify-center place-items-center hover:scale-105 duration-500 hover:drop-shadow-2xl' style={{ boxShadow: "2px 4px 20px rgb(0,0,0,0.3)" }} key={index}>
+          {(recipesArr && recipesArr.length > 0) ? recipesArr.map((el, index) => (<div className='bg-white overflow-hidden rounded-2xl md:w-[400px] md:max-w-[400px] w-[95%] md:py-8  py-4 px-4 flex flex-col justify-center place-items-center hover:scale-105 duration-500 hover:drop-shadow-2xl' style={{ boxShadow: "2px 4px 20px rgb(0,0,0,0.3)" }} key={index}>
             <div>
               <img src={el.image_url} alt={el.title} className='md:w-96 md:h-64 w-96 h-52 rounded-xl' />
             </div>
