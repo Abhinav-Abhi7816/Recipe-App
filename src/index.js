@@ -7,6 +7,8 @@ import Home from './Components/Home';
 import Layout from './Components/Layout';
 import Favorites from './Components/Favorites';
 import Details from './Components/Details';
+import Login from './Components/Login';
+import SignUp from './Components/SignUp';
 
 const router=createBrowserRouter(
   createRoutesFromElements(
@@ -14,15 +16,17 @@ const router=createBrowserRouter(
       <Route path='' element={<Home></Home>}></Route>
       <Route path='favorites' element={<Favorites></Favorites>}></Route>
       <Route path='details/:id' element={<Details></Details>}></Route>
+      <Route path='/login' element={<Login></Login>}></Route>
+      <Route path='/signUp' element={<SignUp></SignUp>}></Route>
     </Route>
   ),
   { basename: '/Recipe-App' }
 );
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  
      <RouterProvider router={router}></RouterProvider>
-  </React.StrictMode>
+  
 );
 
 // If you want to start measuring performance in your app, pass a function

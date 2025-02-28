@@ -1,6 +1,6 @@
 import NavBar from './NavBar'
 import Footer from './Footer'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import { DataContextProvider } from './Contexts/DataContext'
 import { useEffect, useState } from 'react'
 function Layout() {
@@ -9,6 +9,8 @@ function Layout() {
   const [SearchItem, setSearchItem] = useState('');
   const [favArr, setFavArr] = useState([])
   const [load, setLoad] = useState(false);
+  const [logName,setLogName]=useState('');
+  const navigate=useNavigate();
 
   useEffect(() => {
     async function getData() {
@@ -50,12 +52,21 @@ function Layout() {
     }
     console.log(tempArr);
     setFavArr(tempArr);
+    if(tempArr.length!==0 && tempArr.length%3===0)
+        {
+          if(localStorage.getItem('token')==='' || !localStorage.getItem('token'))
+          {
+            alert('Login or Signup to save permanently');
+            navigate('/signUp');
+            return;
+          }
+        }
 
   }
 
   return (
     <>
-      <DataContextProvider value={{ recipesArr, setRecipesArr, SearchItem, setSearchItem, load, setLoad, favArr, setFavArr, handleFav }}>
+      <DataContextProvider value={{ recipesArr, setRecipesArr, SearchItem, setSearchItem, load, setLoad, favArr, setFavArr, handleFav,logName,setLogName }}>
         <NavBar></NavBar>
         <Outlet></Outlet>
       </DataContextProvider>

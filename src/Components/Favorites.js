@@ -1,18 +1,95 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import useDataContext from './Contexts/DataContext'
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { FaArrowUpRightFromSquare } from 'react-icons/fa6';
 import { GoHeartFill } from 'react-icons/go';
 
 function Favorites() {
 
-  const { favArr, handleFav } = useDataContext();
+  const { favArr,setFavArr, handleFav,setLogName } = useDataContext();
+  
+  const[init,setInit]=useState(0)
+  const navigate=useNavigate();
+
+  useEffect(()=>{
+    async function getArr() {
+      if(localStorage.getItem('token')==='' || !localStorage.getItem('token'))
+        {
+          
+          return;
+        }
+      try{
+
+        const response=await fetch('https://recipe-app-back-6ncp.onrender.com/favArr',{
+          method:"GET",
+          headers:{
+            "Authorization":`Bearer ${localStorage.getItem('token')}`
+          }
+        });
+
+        const result=await response.json();
+        if(response.status===500)
+        {
+          if(result.error==="Token expired!")
+          {
+            alert('Session expired! Login again!')
+            localStorage.clear();
+            setLogName('');
+            navigate('/login');
+            return;
+          }
+        }
+
+        setFavArr(result.array)
+      }
+      catch(err)
+      {
+        console.log(err);
+      }
+    }
+    getArr();
+  },[setFavArr,navigate,setLogName])
+
+  useEffect(()=>{
+      async function manupulateArr(){
+        if(init<2)
+        {
+          setInit((pre)=>pre+1);
+          return
+        }
+        if(localStorage.getItem('token')==='' || !localStorage.getItem('token'))
+        {
+          return;
+        }
+        const obj={
+          array:favArr
+        }
+        try{
+          const response=await fetch('https://recipe-app-back-6ncp.onrender.com/favArr',{
+            method:"POST",
+            headers:{
+              'Content-Type':"application/json",
+              'Authorization':`Bearer ${localStorage.getItem('token')}`
+            },
+            body:JSON.stringify(obj)
+          })
+    
+          const result=await response.json();
+        }
+        catch(err){
+          console.log(err);
+        }
+      };
+      manupulateArr();
+    },[favArr,init])
+
+
   return (
     <div className='md:min-h-[600px] min-h-screen'>
       <div className='md:pt-32 pt-24'>
         {(favArr && favArr.length > 0) ? <h1 className='w-[100%] font-semibold text-center md:text-2xl text-lg underline underline-offset-8' style={{ textShadow: "2px 4px 20px rgb(0,0,0,0.3)" }}>Favorite Recipies</h1> : null}
         <div className='flex flex-wrap justify-around gap-4 md:gap-10 pt-4 md:p-8'>
-          {(favArr && favArr.length > 0) ? favArr.map((el, index) => (<div className='bg-white overflow-hidden rounded-2xl md:w-[420px] md:max-w-[420px] w-[95%] md:py-8  py-4 px-4 flex flex-col justify-center place-items-center hover:scale-105 duration-500 hover:drop-shadow-2xl' style={{ boxShadow: "2px 4px 20px rgb(0,0,0,0.3)" }} key={index}>
+          {(favArr && favArr.length > 0) ? favArr.map((el, index) => (<div className='bg-white overflow-hidden rounded-2xl md:w-[420px] md:max-w-[420px] w-[95%] md:py-6  py-4 px-4 flex flex-col justify-center place-items-center hover:scale-105 duration-500 hover:drop-shadow-2xl' style={{ boxShadow: "2px 4px 20px rgb(0,0,0,0.3)" }} key={index}>
             <div>
               <img src={el.image_url} alt={el.title} className='md:w-96 md:h-64 w-96 h-52 rounded-xl' />
             </div>

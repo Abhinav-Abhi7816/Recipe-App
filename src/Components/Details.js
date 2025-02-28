@@ -10,6 +10,38 @@ function Details() {
   const [loading, setLoading] = useState(false);
   const { handleFav, favArr } = useDataContext();
   const { id } = useParams();
+  
+  useEffect(()=>{
+    async function manupulateArr(){
+      if(localStorage.getItem('token')==='' || !localStorage.getItem('token'))
+      {
+        
+        return;
+      }
+      const obj={
+        array:favArr
+      }
+      try{
+        
+        const response=await fetch('https://recipe-app-back-6ncp.onrender.com/favArr',{
+          method:"POST",
+          headers:{
+            'Content-Type':"application/json",
+            'Authorization':`Bearer ${localStorage.getItem('token')}`
+          },
+          body:JSON.stringify(obj)
+        })
+        
+        console.log(response);
+      }
+      catch(err){
+        console.log(err);
+      }
+    };
+    manupulateArr();
+  },[favArr])
+
+
   useEffect(() => {
     async function getDetailedData() {
       try {
@@ -19,6 +51,7 @@ function Details() {
         let detailedData = await response.json();
 
         console.log(detailedData?.data?.recipe);
+        
         setItem(detailedData?.data?.recipe);
         setLoading(false);
 
