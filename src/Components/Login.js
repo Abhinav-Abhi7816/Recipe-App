@@ -5,6 +5,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 function Login() {
   const [user, setUser] = useState('')
   const [pass, setPass] = useState('')
+  const [alertMess,setAlertMesss]=useState(false);
 
   const { favArr, setFavArr, setLogName } = useDataContext()
   const navigate = useNavigate();
@@ -42,10 +43,14 @@ function Login() {
         let lNm = result.logName.split(' ')[0];
         localStorage.setItem('logName', lNm);
         setLogName(lNm);
-        navigate('/')
+        setAlertMesss(false);
+        navigate('/');
         return;
       }
-      console.log("end!Login");
+      if(response.status===404)
+      {
+        setAlertMesss(true);
+      }
     }
     catch (err) {
       console.log(err);
@@ -78,6 +83,11 @@ function Login() {
             <p>Didn't have an account?</p>
             <NavLink to={'/signUp'} className={'text-blue-600 underline underline-offset-4'}>SignUp</NavLink>
           </div>
+          {
+            (alertMess)?<div className='text-xs text-center text-red-500'>
+            <p>( Note: If not loging in wait for 20 sec and try again )</p>
+          </div>:null
+          }
         </form>
       </div>
     </div>

@@ -9,6 +9,7 @@ function SignUp() {
   const [user,setUser]=useState('');
   const [pass,setPass]=useState('');
   const [pass2,setPass2]=useState('');
+  const [alertMess,setAlertMesss]=useState(false);
 
   const navigate=useNavigate();
 
@@ -46,12 +47,17 @@ function SignUp() {
       {
         alert("SignUp successful! Login to your Account!");
         navigate('/login');
+        setAlertMesss(false);
       }
       const result=await response.json();
       if(response.status===400)
       {
         alert(result.message);
         return;
+      }
+      if(response.status===404)
+      {
+        setAlertMesss(true);
       }
     }
     catch(err)
@@ -105,6 +111,11 @@ function SignUp() {
               <p>Already have an account?</p>
               <NavLink to={'/login'} className={'text-blue-600 underline underline-offset-4'}>Login</NavLink>
           </div>
+          {
+            (alertMess)?<div className='text-xs text-center text-red-500'>
+            <p>( Note: If not signing up wait for 20 sec and try again )</p>
+          </div>:null
+          }
           
         </form>
       </div>

@@ -74,7 +74,7 @@ function Favorites() {
             body:JSON.stringify(obj)
           })
     
-          const result=await response.json();
+          await response.json();
         }
         catch(err){
           console.log(err);
@@ -86,7 +86,7 @@ function Favorites() {
 
   return (
     <div className='md:min-h-[600px] min-h-screen'>
-      <div className='md:pt-32 pt-24'>
+      <div className='md:pt-32 pt-28'>
         {(favArr && favArr.length > 0) ? <h1 className='w-[100%] font-semibold text-center md:text-2xl text-lg underline underline-offset-8' style={{ textShadow: "2px 4px 20px rgb(0,0,0,0.3)" }}>Favorite Recipies</h1> : null}
         <div className='flex flex-wrap justify-around gap-4 md:gap-10 pt-4 md:p-8'>
           {(favArr && favArr.length > 0) ? favArr.map((el, index) => (<div className='bg-white overflow-hidden rounded-2xl md:w-[420px] md:max-w-[420px] w-[95%] md:py-6  py-4 px-4 flex flex-col justify-center place-items-center hover:scale-105 duration-500 hover:drop-shadow-2xl' style={{ boxShadow: "2px 4px 20px rgb(0,0,0,0.3)" }} key={index}>
