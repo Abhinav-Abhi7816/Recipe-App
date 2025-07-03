@@ -50,7 +50,7 @@ function Layout() {
         tempArr.splice(k, 1);
       }
     }
-    console.log(tempArr);
+    
     setFavArr(tempArr);
     if(tempArr.length!==0 && tempArr.length%3===0)
         {
