@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import useDataContext from './Contexts/DataContext'
 import { NavLink, useNavigate } from 'react-router-dom'
+import '../App.css';
 
 function Login() {
   const [user, setUser] = useState('')
@@ -60,6 +61,17 @@ function Login() {
   return (
     <div className='min-h-lvh md:pt-20 pt-12'>
       <div className="max-w-[500px] mx-auto font-[sans-serif] p-6">
+        <div className="w-full overflow-hidden mb-4 ">
+          <p
+            className="whitespace-nowrap animate-marquee text-red-500 px-4 py-2 rounded font-semibold"
+            style={{
+              display: 'inline-block',
+              minWidth: '100%',
+            }}
+          >
+            If there is an error during login or sign-up, please wait for 20 seconds and try again. This delay is due to the service latency from Render (the cloud service) for hosting the server for free.
+          </p>
+        </div>
         <div className='flex justify-center p-10 md:text-2xl text-base'>
           <h4 className="text-gray-600 mt-6 border-gray-600 border-b-4 w-fit px-5 text-nowrap">Log-in to your account</h4>
         </div>
